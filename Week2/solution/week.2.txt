@@ -1,0 +1,46 @@
+> create table stud1
+   ...> (
+   ...>          sid int,
+   ...>         name text,
+   ...>         PRIMARY KEY(sid)
+   ...> );
+sqlite> create table stud_details
+   ...> (
+   ...>         id int REFERENCES stud(sid),
+   ...>         city text,
+   ...>         mobileno int
+   ...> );
+sqlite> insert into stud1 values(1,'Om'),
+   ...>                         (2,'Sai'),
+   ...>                         (3,'Ram'),
+   ...>                         (4,'Radha'),
+   ...>                         (5,'Krishna'),
+   ...>                         (6,'Shiv'),
+   ...>                         (7,'Gopal'),
+   ...>                         (8,'Aarti'),
+   ...>                         (9,'Shivani'),
+   ...>                         (10,'Kano');
+sqlite> insert into stud_details values(1,'Dehli',9910501717),
+   ...>                                 (2,'Surat',7908790867),
+   ...>                                 (3,'Surat',6345789045),
+   ...>                                 (4,'Bardoli',6346788905),
+   ...>                                 (5,'Bharuch',9346788905),
+   ...>                                 (6,'Delhi',9145678792),
+   ...>                                 (7,'Surat',9510400878),
+   ...>                                 (8,'Ladakh',9330078789),
+   ...>                                 (9,'Surat',9245723405),
+   ...>                                 (10,'Bhopal',9245788905);
+sqlite> select sid as'STUDENT ID',name as'STUDENT NAME',city as'CITY' from stud1,stud_details
+   ...>     where sid=id AND city='Surat';
+2|Sai|Surat
+3|Ram|Surat
+7|Gopal|Surat
+9|Shivani|Surat
+sqlite> select sid as'STUDENT ID',name as'STUDENT NAME',city as'CITY',mobileno as'MOBILE NUMBER' from stud1,stud_details
+   ...>          where sid=id AND city LIKE 'B%';
+4|Radha|Bardoli|6346788905
+5|Krishna|Bharuch|9346788905
+10|Kano|Bhopal|9245788905
+sqlite> update stud_details
+   ...> set mobileno=9510500989
+   ...> where city='Surat';
